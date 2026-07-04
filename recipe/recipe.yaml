@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "3.22.8"
+  version: "3.22.9"
 
 package:
   name: odfdo
@@ -10,7 +10,7 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/o/odfdo/odfdo-${{ version }}.tar.gz
-    sha256: 1f1303f5be52f168b01dbcd3c3551066f403ba43d6e9958800a5d3a5c6eaf91a
+    sha256: fc2de833735a8062958a6a4dd0e153cbdbd80c4e6649b15331008768431cbbf8
 
 build:
   number: 0
