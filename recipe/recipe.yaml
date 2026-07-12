@@ -2,30 +2,47 @@
 schema_version: 1
 
 context:
-  version: "3.22.9"
+  version: "3.22.11"
 
 package:
   name: odfdo
   version: ${{ version }}
 
 source:
-  - url: https://pypi.org/packages/source/o/odfdo/odfdo-${{ version }}.tar.gz
-    sha256: fc2de833735a8062958a6a4dd0e153cbdbd80c4e6649b15331008768431cbbf8
+  url: https://pypi.org/packages/source/o/odfdo/odfdo-${{ version }}.tar.gz
+  sha256: 308c14e98486be62d4269a583e49604d7daa64b2b74a90a0ced052be6b567c47
 
 build:
   number: 0
   noarch: python
   script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  python:
+    entry_points:
+      - odfdo-diff = odfdo.scripts.diff:main
+      - odfdo-folder = odfdo.scripts.folder:main
+      - odfdo-flat = odfdo.scripts.flat:main
+      - odfdo-highlight = odfdo.scripts.highlight:main
+      - odfdo-show = odfdo.scripts.show:main
+      - odfdo-styles = odfdo.scripts.styles:main
+      - odfdo-replace = odfdo.scripts.replace:main
+      - odfdo-headers = odfdo.scripts.headers:main
+      - odfdo-table-shrink = odfdo.scripts.table_shrink:main
+      - odfdo-userfield = odfdo.scripts.userfield:main
+      - odfdo-markdown = odfdo.scripts.to_markdown:main
+      - odfdo-from-csv = odfdo.scripts.from_csv:main
+      - odfdo-to-csv = odfdo.scripts.to_csv:main
+      - odfdo-meta-print = odfdo.scripts.meta_print:main
+      - odfdo-meta-update = odfdo.scripts.meta_update:main
 
 requirements:
   host:
     - python ${{ python_min }}.*
     - pip
-    - uv-build
+    - uv-build >=0.9.0,<0.12.0
   run:
     - python >=${{ python_min }}
     - lxml >=4.8.0
-
+    - typing_extensions
 tests:
   - python:
       imports:
@@ -34,6 +51,27 @@ tests:
       python_version:
         - ${{ python_min }}.*
         - "*"
+
+  - requirements:
+      run:
+        - pip
+        - python
+    script:
+      - odfdo-diff --help
+      - odfdo-folder --help
+      - odfdo-flat --help
+      - odfdo-highlight --help
+      - odfdo-show --help
+      - odfdo-styles --help
+      - odfdo-replace --help
+      - odfdo-headers --help
+      - odfdo-table-shrink --help
+      - odfdo-userfield --help
+      - odfdo-markdown --help
+      - odfdo-from-csv --help
+      - odfdo-to-csv --help
+      - odfdo-meta-print --help
+      - odfdo-meta-update --help
 
 about:
   homepage: https://github.com/jdum/odfdo
