@@ -11,9 +11,11 @@ package:
 source:
   url: https://pypi.org/packages/source/o/odfdo/odfdo-${{ version }}.tar.gz
   sha256: 308c14e98486be62d4269a583e49604d7daa64b2b74a90a0ced052be6b567c47
+  patches:
+    - patches/0001-loosen-lxml-py310-cap.patch
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   python:
@@ -47,7 +49,7 @@ tests:
   - python:
       imports:
         - odfdo
-      pip_check: false  # lxml env_marker (==3.10) mismatches pip_check on 3.14 test env
+      pip_check: true
       python_version:
         - ${{ python_min }}.*
         - "*"
